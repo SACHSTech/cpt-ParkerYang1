@@ -25,6 +25,15 @@ public class Deaths {
         country = countryName;
         year = yearOccured;
         deaths = numDeaths; 
+    }
 
+    /**
+     * Getter method for name of country
+     * @return Name of country
+     * @author: P. Yang
+     * 
+     */
+    public String getCountry(){
+        return country; 
     }
 }
