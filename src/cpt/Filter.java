@@ -8,10 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter; 
 
-public class sorter {
+public class Filter {
     public static void main(String [] args) throws IOException{
-        BufferedReader deaths = new BufferedReader(new FileReader("src/cpt/dataset.csv"));
-        PrintWriter sortedDeaths = new PrintWriter(new FileWriter("src/cpt/sorteddataset.csv"));
+        BufferedReader deaths = new BufferedReader(new FileReader("src/cpt/DataSet.csv"));
+        PrintWriter sortedDeaths = new PrintWriter(new FileWriter("src/cpt/SortedDataSet.csv"));
 
         String line; 
 
