@@ -46,4 +46,14 @@ public class Deaths {
     public int getYear(){
         return year;
     }
+
+    /**
+     * Getter method for number of deaths 
+     * @return Number of deaths 
+     * @author: P. Yang
+     * 
+     */
+    public int getDeaths(){
+        return deaths;
+    }
 }
