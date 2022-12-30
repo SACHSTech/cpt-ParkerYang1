@@ -36,4 +36,14 @@ public class Deaths {
     public String getCountry(){
         return country; 
     }
+
+    /**
+     * Getter method for year for that set of data
+     * @return Recorded year for that set of data 
+     * @author: P. Yang
+     * 
+     */
+    public int getYear(){
+        return year;
+    }
 }
