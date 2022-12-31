@@ -11,7 +11,7 @@ public class Deaths {
     // Instance variables 
     private String country;
     private int year;
-    private int deaths; 
+    private double deaths; 
 
     /**
      * Constructor for deaths 
@@ -21,7 +21,7 @@ public class Deaths {
      * @author: P. Yang
      * 
      */
-    public Deaths(String countryName, int yearOccured, int numDeaths){
+    public Deaths(String countryName, int yearOccured, double numDeaths){
         country = countryName;
         year = yearOccured;
         deaths = numDeaths; 
@@ -53,7 +53,17 @@ public class Deaths {
      * @author: P. Yang
      * 
      */
-    public int getDeaths(){
+    public double getDeaths(){
         return deaths;
+    }
+
+    /**
+     * Method to convert info to String
+     * @return Info as String
+     * @author: P. Yang
+     * 
+     */
+    public String toString(){
+        return (this.getCountry() + " had " + this.getDeaths() + "(per 100,000) deaths in " + this.getYear());
     }
 }
