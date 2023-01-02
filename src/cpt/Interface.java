@@ -49,22 +49,14 @@ public class Interface extends Application{
         }
 
         public Parent BarChart() throws IOException{
-            String[] data = deathArray;
-            xAxis = new CategoryAxis();
-            xAxis.setCategories(FXCollections.<String>observableArrayList(data));
-            yAxis = new NumberAxis("Units Sold", 0.0d, 3000.0d, 1000.0d);
-            ObservableList<BarChart.Series> barChartData =
-                FXCollections.observableArrayList(
-                  new BarChart.Series("2016", FXCollections.observableArrayList(
-                    new BarChart.Data(data[0], 567d),
-                    new BarChart.Data(data[1], 1292d),
-                    new BarChart.Data(data[2], 1292d))),
-                  new BarChart.Series("2017", FXCollections.observableArrayList(
-                    new BarChart.Data(data[0], 956),
-                    new BarChart.Data(data[1], 1665),
-                    new BarChart.Data(data[2], 2559)))
-            );
-        chart = new BarChart(xAxis, yAxis, barChartData, 25.0d);
+            CategoryAxis xAxis = new CategoryAxis();   
+        
+            xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList())); 
+            xAxis.setLabel("Countries");
+
+            NumberAxis yAxis = new NumberAxis(); 
+            yAxis.setLabel("Deaths per 100,000");
+
         return chart;
         }
 
