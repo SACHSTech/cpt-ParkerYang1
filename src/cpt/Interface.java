@@ -20,6 +20,7 @@ public class Interface extends Application{
     private BarChart chart;
     private CategoryAxis xAxis;
     private NumberAxis yAxis;
+    static DeathsDataCreator deathArray;
     public static void main(String arg[])throws IOException{
         DeathCounter();
         launch(arg);
@@ -29,7 +30,8 @@ public class Interface extends Application{
             String country;
             double deaths;
             int year;
-            ArrayList<Deaths> deathArray = new ArrayList<>();
+            
+            deathArray = new DeathsDataCreator();
 
             BufferedReader br = new BufferedReader(new FileReader("src/cpt/SortedDataSet.csv"));
             line = br.readLine();
@@ -43,7 +45,7 @@ public class Interface extends Application{
                 deaths = Double.parseDouble(splitLine[2]);
 
                 Deaths deathCounter = new Deaths(country, year, deaths);
-                deathArray.add(deathCounter);
+                deathArray.addNewData(deathCounter);
             }
             br.close();
         }
@@ -51,7 +53,7 @@ public class Interface extends Application{
         public Parent BarChart() throws IOException{
             CategoryAxis xAxis = new CategoryAxis();   
         
-            xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList())); 
+            xAxis.setCategories(deathArray.getObservableList()); 
             xAxis.setLabel("Countries");
 
             NumberAxis yAxis = new NumberAxis(); 
