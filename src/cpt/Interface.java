@@ -15,16 +15,20 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.stage.Stage;
 
-public class Interface{
-    public static void main(String arg[]){
-            
+public class Interface extends Application{
+
+    private BarChart chart;
+    private CategoryAxis xAxis;
+    private NumberAxis yAxis;
+    public static void main(String arg[])throws IOException{
+        DeathCounter();
     }
         public static void DeathCounter() throws IOException{
             String line; 
             String country;
-            int count = 0;
-            
-            List<String> countryName = new ArrayList<String>();
+            double deaths;
+            int year;
+            ArrayList<Deaths> deathArray = new ArrayList<>();
 
             BufferedReader br = new BufferedReader(new FileReader("src/cpt/SortedDataSet.csv"));
             line = br.readLine();
@@ -34,26 +38,23 @@ public class Interface{
 
                 String[] splitLine = line.split(",");
                 country = splitLine[0];
+                year = Integer.parseInt(splitLine[1]);
+                deaths = Double.parseDouble(splitLine[2]);
 
-                if(i % 2 == 0){
-                    countryName.add(country);
-                }
-            }
-
-            String[] newCountryName = new String[countryName.size()];
-
-            for (int i = 0; i < countryName.size(); i++){
-                newCountryName[i] = countryName.get(i);
+                Deaths deathCounter = new Deaths(country, year, deaths);
+                deathArray.add(deathCounter);
             }
             br.close();
         }
-}
 
-/** 
+        public Parent BarChart() throws IOException{
+
+            return chart;
+        }
+
         @Override public void start(Stage primaryStage) throws Exception {
-            primaryStage.setScene(new Scene(BarCharts()));
+            primaryStage.setScene(new Scene(BarChart()));
             primaryStage.show();
         }
-*/
-
+}
 
