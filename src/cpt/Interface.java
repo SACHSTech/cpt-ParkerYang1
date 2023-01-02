@@ -15,16 +15,11 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.stage.Stage;
 
-public class Interface extends Application {
+public class Interface{
     public static void main(String arg[]){
-        launch(arg);
+            
     }
- 
-        private BarChart chart;
-        private CategoryAxis xAxis;
-        private NumberAxis yAxis;
-
-        public Parent BarCharts() throws IOException{
+        public static void DeathCounter() throws IOException{
             String line; 
             String country;
             int count = 0;
@@ -46,31 +41,19 @@ public class Interface extends Application {
             }
 
             String[] newCountryName = new String[countryName.size()];
-            newCountryName = countryName.toArray(newCountryName);
 
-            br.close();
-
-            int size = newCountryName.length;
-            for(int i = 0; i < size; i++){
-                count++;
+            for (int i = 0; i < countryName.size(); i++){
+                newCountryName[i] = countryName.get(i);
             }
-
-            xAxis = new CategoryAxis();
-            xAxis.setCategories(FXCollections.<String>observableArrayList(newCountryName));
-            yAxis = new NumberAxis("Deaths", 0.0d, 5000.0d, 100.0d);
-            ObservableList<BarChart.Series> barChartData =
-            FXCollections.observableArrayList(
-                new BarChart.Series("2016", FXCollections.observableArrayList(
-                    new BarChart.Data(newCountryName[0], 567d)))
-            );
-            chart = new BarChart(xAxis, yAxis, barChartData, 1.0d);
-            return chart;
+            br.close();
         }
+}
 
+/** 
         @Override public void start(Stage primaryStage) throws Exception {
             primaryStage.setScene(new Scene(BarCharts()));
             primaryStage.show();
         }
-        
-}
+*/
+
 
