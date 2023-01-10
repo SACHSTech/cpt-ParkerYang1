@@ -51,13 +51,6 @@ public class Interface extends Application{
         }
 
         public Parent BarChart() throws IOException{
-            CategoryAxis xAxis = new CategoryAxis();   
-        
-            xAxis.setCategories(deathArray.getObservableList()); 
-            xAxis.setLabel("Countries");
-
-            NumberAxis yAxis = new NumberAxis(); 
-            yAxis.setLabel("Deaths per 100,000");
 
         return chart;
         }
