@@ -6,7 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Filter {
-    public static void main(String [] args) throws IOException{
+
+    public ArrayList<Deaths> getObject() throws IOException{
+
         String line; 
         String country;
         double deaths;
@@ -28,6 +30,13 @@ public class Filter {
             originalDataArray.add(deathCounter);
         }
         br.close();
-        System.out.println(originalDataArray);
+        return(originalDataArray);
     }
+
+    public void testPrint() throws IOException{
+        System.out.println(this.getObject());
+    }
+
+
 }
+
