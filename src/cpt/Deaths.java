@@ -22,9 +22,9 @@ public class Deaths {
      * 
      */
     public Deaths(String countryName, int yearOccured, double numDeaths){
-        country = countryName;
-        year = yearOccured;
-        deaths = numDeaths; 
+        this.country = countryName;
+        this.year = yearOccured;
+        this.deaths = numDeaths; 
     }
 
     /**

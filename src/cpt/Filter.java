@@ -6,14 +6,18 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Filter {
+    public static void main(String[] args) throws IOException{
+        getArray(2017);
+    }
 
-    public ArrayList<Deaths> getObject() throws IOException{
-
+    public static ArrayList<Deaths> getArray(int certainYear) throws IOException{
         String line; 
         String country;
         double deaths;
         int year;
-        ArrayList<Deaths> originalDataArray = new ArrayList<>();
+        ArrayList<Deaths> dataArray = new ArrayList<>();
+        ArrayList<Deaths> dataArray2016 = new ArrayList<>();
+        ArrayList<Deaths> dataArray2017 = new ArrayList<>();
 
         BufferedReader br = new BufferedReader(new FileReader("src/cpt/DataSet.csv"));
         line = br.readLine();
@@ -27,16 +31,21 @@ public class Filter {
             deaths = Double.parseDouble(splitLine[3]);
 
             Deaths deathCounter = new Deaths(country, year, deaths);
-            originalDataArray.add(deathCounter);
+
+            if(certainYear == 2016){
+                if(year == 2016){
+                    dataArray2016.add(deathCounter);
+                    dataArray = dataArray2016;
+                }
+            } else if (certainYear == 2017){
+                if(year == 2017){
+                    dataArray2017.add(deathCounter);
+                    dataArray = dataArray2017;
+                }
+            } 
         }
         br.close();
-        return(originalDataArray);
+        return(dataArray);
     }
-
-    public void testPrint() throws IOException{
-        System.out.println(this.getObject());
-    }
-
-
 }
 
