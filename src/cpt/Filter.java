@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Filter {
     public static void main(String[] args) throws IOException{
-        getArray(2017);
+        getArray(2016);
     }
 
     public static ArrayList<Deaths> getArray(int certainYear) throws IOException{
@@ -45,6 +45,7 @@ public class Filter {
             } 
         }
         br.close();
+        System.out.println(dataArray);
         return(dataArray);
     }
 }
