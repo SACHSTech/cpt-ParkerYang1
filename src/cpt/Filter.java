@@ -6,18 +6,18 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Filter {
-    public static void main(String[] args) throws IOException{
-        getArray(2016);
+
+    private ArrayList<Deaths> dataArray;
+
+    public Filter(){
+        this.dataArray = new ArrayList<>();
     }
 
-    public static ArrayList<Deaths> getArray(int certainYear) throws IOException{
+    public void initializeList() throws IOException{
         String line; 
         String country;
         double deaths;
         int year;
-        ArrayList<Deaths> dataArray = new ArrayList<>();
-        ArrayList<Deaths> dataArray2016 = new ArrayList<>();
-        ArrayList<Deaths> dataArray2017 = new ArrayList<>();
 
         BufferedReader br = new BufferedReader(new FileReader("src/cpt/DataSet.csv"));
         line = br.readLine();
@@ -31,22 +31,19 @@ public class Filter {
             deaths = Double.parseDouble(splitLine[3]);
 
             Deaths deathCounter = new Deaths(country, year, deaths);
-
-            if(certainYear == 2016){
-                if(year == 2016){
-                    dataArray2016.add(deathCounter);
-                    dataArray = dataArray2016;
-                }
-            } else if (certainYear == 2017){
-                if(year == 2017){
-                    dataArray2017.add(deathCounter);
-                    dataArray = dataArray2017;
-                }
-            } 
+            dataArray.add(deathCounter);
         }
         br.close();
-        System.out.println(dataArray);
-        return(dataArray);
+        // System.out.println(dataArray);
+    }
+
+    public ArrayList<Deaths> yearSpecificList(int specificYear){
+        for(int i = 0; i < dataArray.size(); i++){
+            if(specificYear == 2016){
+
+            }
+        }
+        return (dataArray);
     }
 }
 

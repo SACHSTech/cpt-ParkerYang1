@@ -15,15 +15,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.stage.Stage;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-
-import javafx.application.Application;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.stage.Stage;
+import javafx.scene.control.CheckBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class Interface extends Application{
 
@@ -33,13 +27,16 @@ public class Interface extends Application{
     private NumberAxis yAxis;
 
     public Parent LineChart() {
+
         xAxis = new CategoryAxis();
         yAxis = new NumberAxis();
         chart = new LineChart<>(xAxis, yAxis);
+
         // setup chart
         chart.setTitle("Death Rates From Mental Health and Substance Use Disorders");
         xAxis.setLabel("Countries");
         yAxis.setLabel("Deaths (per 100,000)");
+
         // add starting data
         XYChart.Series<String, Number> series2016 = new XYChart.Series<>();
         series2016.setName("2016");
