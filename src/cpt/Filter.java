@@ -5,13 +5,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Filter {
+public class Filter{
 
-    private ArrayList<Deaths> dataArray;
-
-    public Filter(){
-        this.dataArray = new ArrayList<>();
-    }
+    static ArrayList<Deaths> dataArray = new ArrayList<Deaths>();
 
     public void initializeList() throws IOException{
         String line; 
@@ -34,16 +30,24 @@ public class Filter {
             dataArray.add(deathCounter);
         }
         br.close();
-        // System.out.println(dataArray);
     }
 
     public ArrayList<Deaths> yearSpecificList(int specificYear){
-        for(int i = 0; i < dataArray.size(); i++){
-            if(specificYear == 2016){
+        ArrayList<Deaths> sortedData = new ArrayList<Deaths>();
 
+        for(int i = 0; i < dataArray.size(); i++){
+            if(dataArray.get(i).getYear() == specificYear){
+                sortedData.add(dataArray.get(i));
             }
         }
-        return (dataArray);
+        return (sortedData);
     }
+
+    /* 
+    public static void main(String[] args) throws IOException{
+        initializeList();
+        yearSpecificList(2016);
+    }
+    */
 }
 
