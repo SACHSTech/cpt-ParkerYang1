@@ -8,38 +8,24 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.stage.Stage;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-
 import java.util.Arrays;
+import javafx.scene.chart.BarChart;
+
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.control.CheckBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Interface extends Application{
-
-    /* 
-    private LineChart<String, Number> chart;
-    private CategoryAxis xAxis;
-    private NumberAxis yAxis;
-    */
 
     private BarChart<Number, String> chart;
     private NumberAxis xAxis;
@@ -99,13 +85,12 @@ public class Interface extends Application{
         chart.getData().add(series1);
         chart.getData().add(series2);
         return chart;
-
         }
 
         @Override public void start(Stage primaryStage) throws IOException {
             primaryStage.setScene(new Scene(createContent()));
-            primaryStage.setWidth(1200);
-            primaryStage.setHeight(1200);
+            primaryStage.setWidth(1500);
+            primaryStage.setHeight(1500);
             primaryStage.show();
 
         }

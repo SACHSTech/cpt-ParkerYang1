@@ -58,8 +58,6 @@ public class Filter{
                 sortedCountryData.add(element);
             }
         }
-
-        System.out.println(sortedCountryData);
         return (sortedCountryData);
     }
 
