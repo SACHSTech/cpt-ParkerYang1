@@ -16,8 +16,12 @@ import javafx.scene.chart.NumberAxis;
 import javafx.stage.Stage;
 import javafx.scene.chart.XYChart;
 import java.util.Arrays;
+
+import javax.swing.text.LayoutQueue;
+
 import javafx.scene.chart.BarChart;
 
+// Button
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,14 +31,21 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+// Menu
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+
+
 public class Interface extends Application{
 
     private BarChart<Number, String> chart;
     private NumberAxis xAxis;
     private CategoryAxis yAxis;
     Button button;
+    BorderPane menu;
     XYChart.Series<Number, String> series1 = new XYChart.Series<>();
     XYChart.Series<Number, String> series2 = new XYChart.Series<>();
+    boolean show;
 
     Filter masterList = new Filter();
 
@@ -90,31 +101,58 @@ public class Interface extends Application{
         // chart.getData().add(series1);
         // chart.getData().add(series2);
         chart.setPrefWidth(1500);
-        chart.setPrefHeight(2000);
+        chart.setPrefHeight(2500);
 
         return chart;
         }
 
         @Override public void start(Stage primaryStage) throws IOException {
+            // Menu tabs
+            Menu fileMenu = new Menu("Chart Options");
+
+            MenuItem HBC = new MenuItem("Horizontal Bar Chart (Chart #1)");
+            HBC.setOnAction(e -> showBarChart(true));
+            fileMenu.getItems().add(HBC);
+
+            fileMenu.getItems().add(new MenuItem("Chart #2"));
+
+            menu = new BorderPane();
+
+            MenuBar menuBar = new MenuBar();
+            menuBar.getMenus().addAll(fileMenu);
+
+            menu.setTop(menuBar);
+
+            // Check boxes
             CheckBox box2016 = new CheckBox("2016");
             CheckBox box2017 = new CheckBox("2017");
             CheckBox boxBoth = new CheckBox("Both");
             
+            // Enter checkbox
             button = new Button("Enter");
+
+            // Handle controls for checkbox
             button.setOnAction(e -> handleOption(box2016, box2017, boxBoth, series1, series2));
 
-            VBox layout = new VBox(10);
-            layout.setPadding(new Insets(10));
+            // VBox
+            VBox layout1 = new VBox(10);
+            layout1.setPadding(new Insets(10));
 
-            layout.getChildren().addAll(box2016, box2017, boxBoth, button, createContent());
+            layout1.getChildren().addAll(menu, box2016, box2017, boxBoth, button, createContent());
 
             //primaryStage.setScene(new Scene(createContent())); 
-            Scene sc = new Scene(layout); 
-            primaryStage.setTitle("ICS4U CPT");
+            Scene sc = new Scene(layout1); 
+            primaryStage.setTitle("ICS4U Data Interaction and Visualization CPT (Parker Yang)");
             primaryStage.setScene(sc);
             primaryStage.setWidth(1500);
             primaryStage.setHeight(1500);
             primaryStage.show();
+        }
+
+        public void showBarChart(boolean show){
+            if(show == true){
+            
+            }
         }
 
         public void handleOption(CheckBox box2016, CheckBox box2017, CheckBox boxBoth, XYChart.Series<Number, String> series1, XYChart.Series<Number, String> series2){
