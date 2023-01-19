@@ -17,71 +17,100 @@ import javafx.stage.Stage;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+import java.util.Arrays;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
+
 public class Interface extends Application{
 
+    /* 
     private LineChart<String, Number> chart;
     private CategoryAxis xAxis;
     private NumberAxis yAxis;
+    */
+
+    private BarChart<Number, String> chart;
+    private NumberAxis xAxis;
+    private CategoryAxis yAxis;
 
     Filter masterList = new Filter();
 
-    public Parent LineChart() throws IOException{
-
-        xAxis = new CategoryAxis();
-        yAxis = new NumberAxis();
-        chart = new LineChart<>(xAxis, yAxis);
+    public Parent createContent() throws IOException{
 
         masterList.initializeList();
+
+        // Call list method for 2016 in filter class
         ArrayList<Deaths> list2016 = new ArrayList<>();
         list2016 = masterList.yearSpecificList(2016);
 
+        // Call list method for 2017 in filter class
         ArrayList<Deaths> list2017 = new ArrayList<>();
         list2017 = masterList.yearSpecificList(2017);
 
-        // setup chart
+        // Call list method for countries in filter class
+        ArrayList<String> countryList = new ArrayList<>();
+        countryList = masterList.countryList();
+    
+        // Convert countryList into array
+        String[] temp = new String[countryList.size()];
+        temp = countryList.toArray(temp);
+
+        final ObservableList<String> categories =
+            FXCollections.<String>observableArrayList(Arrays.asList(temp));
+        xAxis = new NumberAxis();
+        yAxis = new CategoryAxis();
+        chart = new BarChart<>(xAxis, yAxis);
+
+        // Set up chart
         chart.setTitle("Death Rates From Mental Health and Substance Use Disorders");
-        xAxis.setLabel("Countries");
-        yAxis.setLabel("Deaths (per 100,000)");
+        yAxis.setLabel("Countries");
+        yAxis.setCategories(categories);
+        xAxis.setLabel("Deaths (Per 100,000)");
 
-        // add starting data
-        XYChart.Series<String, Number> series2016 = new XYChart.Series<>();
-        series2016.setName("2016");
-
+        // For loop to run through entire array to display country and death for 2016
+        XYChart.Series<Number, String> series1 = new XYChart.Series<>();
+        series1.setName("2016");
         for(int i = 0; i < list2016.size(); i++){
-        series2016.getData().add(new XYChart.Data<String, Number>(list2016.get(i).getCountry(), list2016.get(i).getDeaths()));
-        chart.getData().add(series2016);
+            series1.getData().addAll(
+                new XYChart.Data<Number, String>(list2016.get(i).getDeaths(), list2016.get(i).getCountry()));
+        }
+        
+        // For loop to run through entire array to display country and death for 2017
+        XYChart.Series<Number, String> series2 = new XYChart.Series<>();
+        series2.setName("2017");
+        for(int j = 0; j < list2017.size(); j++){
+            series2.getData().addAll(
+                new XYChart.Data<Number, String>(list2017.get(j).getDeaths(), list2017.get(j).getCountry()));
         }
 
-        XYChart.Series<String, Number> series2017 = new XYChart.Series<>();
-        series2016.setName("2017");
-
-        for(int j = 0; j < list2017.size(); j++){
-            series2017.getData().add(new XYChart.Data<String, Number>(list2017.get(j).getCountry(), list2017.get(j).getDeaths()));
-            chart.getData().add(series2017);
-            }
+        // Add series to chart
+        chart.getData().add(series1);
+        chart.getData().add(series2);
         return chart;
-    }
 
-        @Override public void start(Stage primaryStage) throws Exception {
-            /* 
-            CheckBox box2016 = new CheckBox("2016");
-            CheckBox box2017 = new CheckBox("2017");
+        }
 
-            VBox layout = new VBox();
-            layout.setPadding(new Insets(20, 20, 20, 20));
-            layout.getChildren().addAll(box2016, box2017);
-            */
-
-            primaryStage.setScene(new Scene(LineChart()));
+        @Override public void start(Stage primaryStage) throws IOException {
+            primaryStage.setScene(new Scene(createContent()));
+            primaryStage.setWidth(1200);
+            primaryStage.setHeight(1200);
             primaryStage.show();
 
         }
         public static void main(String[] args) {
             launch(args);
         }
-
-}
+    }
 

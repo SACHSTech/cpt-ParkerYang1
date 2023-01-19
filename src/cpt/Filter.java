@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Filter{
 
-    static ArrayList<Deaths> dataArray = new ArrayList<Deaths>();
+    ArrayList<Deaths> dataArray = new ArrayList<Deaths>();
 
     public void initializeList() throws IOException{
         String line; 
@@ -43,11 +43,32 @@ public class Filter{
         return (sortedData);
     }
 
-    /* 
+    public ArrayList<String> countryList(){
+        ArrayList<String> countryData = new ArrayList<String>();
+        ArrayList<String> sortedCountryData = new ArrayList<String>();
+
+        for(int i = 1; i < dataArray.size(); i++){
+            if(dataArray.get(i).getCountry() != " "){
+                countryData.add(dataArray.get(i).getCountry());
+            }
+        }
+
+        for(String element : countryData){
+            if(!sortedCountryData.contains(element)){
+                sortedCountryData.add(element);
+            }
+        }
+
+        System.out.println(sortedCountryData);
+        return (sortedCountryData);
+    }
+
+/* 
     public static void main(String[] args) throws IOException{
         initializeList();
         yearSpecificList(2016);
+        countryList();
     }
-    */
+*/
 }
 
