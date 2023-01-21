@@ -16,25 +16,14 @@ import javafx.scene.chart.NumberAxis;
 import javafx.stage.Stage;
 import javafx.scene.chart.XYChart;
 import java.util.Arrays;
-
-import javax.swing.text.LayoutQueue;
-
 import javafx.scene.chart.BarChart;
-
-// Button
-import javafx.application.Application;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-// Menu
-import javafx.scene.control.*;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.BorderPane;
-
+import javafx.geometry.Side;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 public class Interface extends Application{
 
@@ -42,10 +31,9 @@ public class Interface extends Application{
     private NumberAxis xAxis;
     private CategoryAxis yAxis;
     Button button;
-    BorderPane menu;
     XYChart.Series<Number, String> series1 = new XYChart.Series<>();
     XYChart.Series<Number, String> series2 = new XYChart.Series<>();
-    boolean show;
+    TabPane tabPane;
 
     Filter masterList = new Filter();
 
@@ -82,88 +70,85 @@ public class Interface extends Application{
         xAxis.setLabel("Deaths (Per 100,000)");
 
         // For loop to run through entire array to display country and death for 2016
-        // XYChart.Series<Number, String> series1 = new XYChart.Series<>();
         series1.setName("2016");
         for(int i = 0; i < list2016.size(); i++){
-            series1.getData().addAll(
+            series1.getData().add(
                 new XYChart.Data<Number, String>(list2016.get(i).getDeaths(), list2016.get(i).getCountry()));
         }
         
         // For loop to run through entire array to display country and death for 2017
-        // XYChart.Series<Number, String> series2 = new XYChart.Series<>();
         series2.setName("2017");
         for(int j = 0; j < list2017.size(); j++){
-            series2.getData().addAll(
+            series2.getData().add(
                 new XYChart.Data<Number, String>(list2017.get(j).getDeaths(), list2017.get(j).getCountry()));
         }
 
         // Add series to chart
-        // chart.getData().add(series1);
-        // chart.getData().add(series2);
         chart.setPrefWidth(1500);
         chart.setPrefHeight(2500);
-
         return chart;
         }
 
         @Override public void start(Stage primaryStage) throws IOException {
-            // Menu tabs
-            Menu fileMenu = new Menu("Chart Options");
+            //Border pane
+            BorderPane root = new BorderPane();
 
-            MenuItem HBC = new MenuItem("Horizontal Bar Chart (Chart #1)");
-            HBC.setOnAction(e -> showBarChart(true));
-            fileMenu.getItems().add(HBC);
+            // Radio buttons
+            RadioButton box2016 = new RadioButton("2016");
 
-            fileMenu.getItems().add(new MenuItem("Chart #2"));
+            RadioButton box2017 = new RadioButton("2017");
 
-            menu = new BorderPane();
-
-            MenuBar menuBar = new MenuBar();
-            menuBar.getMenus().addAll(fileMenu);
-
-            menu.setTop(menuBar);
-
-            // Check boxes
-            CheckBox box2016 = new CheckBox("2016");
-            CheckBox box2017 = new CheckBox("2017");
-            CheckBox boxBoth = new CheckBox("Both");
-            
-            // Enter checkbox
+            // Enter button
             button = new Button("Enter");
 
-            // Handle controls for checkbox
-            button.setOnAction(e -> handleOption(box2016, box2017, boxBoth, series1, series2));
+            // Handle controls for radio buttons
+            button.setOnAction(e -> handleOptionBC(box2016, box2017, series1, series2));
 
-            // VBox
+            // Tabs
+            tabPane = new TabPane();
+            tabPane.setSide(Side.TOP);
+
+            // Tab 1
+            Tab tab1 = new Tab("Chart #1");
+            tab1.setClosable(false);
             VBox layout1 = new VBox(10);
-            layout1.setPadding(new Insets(10));
+            layout1.setPadding(new Insets(10)); 
+            layout1.getChildren().addAll(tabPane, box2016, box2017, button, createContent());
+            tab1.setContent(layout1);
+            tabPane.getTabs().add(tab1);
 
-            layout1.getChildren().addAll(menu, box2016, box2017, boxBoth, button, createContent());
+            // Tab 2
+            Tab tab2 = new Tab("Chart #2");
+            tab2.setClosable(false);
+            VBox layout2 = new VBox(10);
+            layout2.setPadding(new Insets(10)); 
+            layout2.getChildren().addAll(tabPane);
+            tab2.setContent(layout2);
+            tabPane.getTabs().add(tab2);
 
-            //primaryStage.setScene(new Scene(createContent())); 
-            Scene sc = new Scene(layout1); 
+            root.setCenter(tabPane);
+
+            // Set screen
+            Scene screen = new Scene(root); 
             primaryStage.setTitle("ICS4U Data Interaction and Visualization CPT (Parker Yang)");
-            primaryStage.setScene(sc);
+            primaryStage.setScene(screen);
             primaryStage.setWidth(1500);
             primaryStage.setHeight(1500);
             primaryStage.show();
         }
 
-        public void showBarChart(boolean show){
-            if(show == true){
-            
-            }
-        }
-
-        public void handleOption(CheckBox box2016, CheckBox box2017, CheckBox boxBoth, XYChart.Series<Number, String> series1, XYChart.Series<Number, String> series2){
+        public void handleOptionBC(RadioButton box2016, RadioButton box2017, XYChart.Series<Number, String> series1, XYChart.Series<Number, String> series2){
             if(box2016.isSelected()){
                 chart.getData().add(series1);
-            } else if (box2017.isSelected()){
+            } else {
+                chart.getData().remove(series1);
+            }
+
+            if (box2017.isSelected()){
                 chart.getData().add(series2);
-            } else if (boxBoth.isSelected()){
-                chart.getData().add(series1);
-                chart.getData().add(series2);
-            } 
+            } else {
+                chart.getData().remove(series2);
+            }
         }
         public static void main(String[] args) {
             launch(args);
