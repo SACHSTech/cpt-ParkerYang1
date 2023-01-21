@@ -108,7 +108,7 @@ public class Interface extends Application{
             series2.getData().add(new XYChart.Data<Number, String>(list2017.get(j).getDeaths(), list2017.get(j).getCountry()));
         }
 
-        // Add series to chart
+        // Set dimensions for chart
         chart.setPrefWidth(1500);
         chart.setPrefHeight(2500);
         return chart;
@@ -134,15 +134,17 @@ public class Interface extends Application{
             String[] temp = new String[countryList.size()];
             temp = countryList.toArray(temp);
 
+            final ObservableList<String> categories2 =
+            FXCollections.<String>observableArrayList(Arrays.asList(temp));
             xAxis2 = new CategoryAxis();
             yAxis2 = new NumberAxis();
             chart2 = new ScatterChart<>(xAxis2, yAxis2);
 
             chart2.setTitle("Death Rates From Mental Health and Substance Use Disorders");
             xAxis2.setLabel("Countries");
+            xAxis2.setCategories(categories2);
             yAxis2.setLabel("Deaths (Per 100,000)");
 
-            Series<String, Number> series3 = new Series<>();
             series3.setName("2016");
             
             for(int j = 0; j < list2016.size(); j++){
@@ -150,12 +152,11 @@ public class Interface extends Application{
             }
 
             series4.setName("2017");
+
             for(int k = 0; k < list2017.size(); k++){
                 series4.getData().add(new XYChart.Data<String, Number>(list2017.get(k).getCountry(), list2017.get(k).getDeaths()));
             }
 
-            chart2.getData().add(series3);
-            chart2.getData().add(series4);
             chart2.setPrefWidth(1000);
             chart2.setPrefHeight(1000);
             return chart2;
@@ -167,7 +168,6 @@ public class Interface extends Application{
 
             // Radio buttons for horizontal bar chart
             RadioButton HBCbox2016 = new RadioButton("2016");
-
             RadioButton HBCbox2017 = new RadioButton("2017");
 
             // Enter button for horizontal bar chart
@@ -178,21 +178,20 @@ public class Interface extends Application{
 
             // Radio buttons for scatter graph
             RadioButton SGbox2016 = new RadioButton("2016");
-
             RadioButton SGbox2017 = new RadioButton("2017");
 
             // Enter button for scatter graph
             SGbutton = new Button("Enter");
 
             // Handle controls for radio buttons (scatter graph)
-            // SGbutton.setOnAction(e -> handleOptionSG(SGbox2016, SGbox2017, series3, series4));
+            SGbutton.setOnAction(e -> handleOptionSG(SGbox2016, SGbox2017, series3, series4));
 
             // Tabs
             tabPane = new TabPane();
             tabPane.setSide(Side.TOP);
 
             // Tab 1
-            Tab tab1 = new Tab("Chart #1");
+            Tab tab1 = new Tab("Chart #1 (Horizontal Bar Chart)");
             tab1.setClosable(false);
             VBox layout1 = new VBox(10);
             layout1.setPadding(new Insets(10)); 
@@ -201,7 +200,7 @@ public class Interface extends Application{
             tabPane.getTabs().add(tab1);
 
             // Tab 2
-            Tab tab2 = new Tab("Chart #2");
+            Tab tab2 = new Tab("Chart #2 (Scatter Graph)");
             tab2.setClosable(false);
             VBox layout2 = new VBox(10);
             layout2.setPadding(new Insets(10)); 
@@ -233,8 +232,7 @@ public class Interface extends Application{
                 chart.getData().remove(series2);
             }
         }
-
-        /* 
+        
         public void handleOptionSG(RadioButton SGbox2016, RadioButton SGbox2017, XYChart.Series<String, Number> series3, XYChart.Series<String, Number> series4){
             if(SGbox2016.isSelected()){
                 chart2.getData().add(series3);
@@ -248,7 +246,7 @@ public class Interface extends Application{
                 chart2.getData().remove(series4);
             }
         }
-        */
+        
         public static void main(String[] args) {
             launch(args);
         }
