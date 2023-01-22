@@ -1,4 +1,6 @@
 package cpt;
+
+// Imports 
 import java.util.*;
 import java.io.IOException;
 import javafx.application.Application;
@@ -52,13 +54,21 @@ public class Interface extends Application{
     // Filter object
     Filter masterList = new Filter();
 
+    // Button booleans
+    boolean HBCselected2016 = false;
+    boolean HBCselected2017 = true;
+    boolean SGselected2016 = false;
+    boolean SGselected2017 = true;
+    
+
     /**
      * Makes a horizontal bar chart based off the data 
      * @return Returns the horizontal bar chart 
      * @author: P. Yang
      * 
      */
-    public Parent horizontalBarChart() throws IOException{
+    public Parent HorizontalBarChart() throws IOException{
+
 
         masterList.initializeList();
 
@@ -136,7 +146,7 @@ public class Interface extends Application{
 
             // Set up scatter graph
             final ObservableList<String> categories2 =
-            FXCollections.<String>observableArrayList(Arrays.asList(temp));
+                FXCollections.<String>observableArrayList(Arrays.asList(temp));
             xAxis2 = new CategoryAxis();
             yAxis2 = new NumberAxis();
             chart2 = new ScatterChart<>(xAxis2, yAxis2);
@@ -175,6 +185,8 @@ public class Interface extends Application{
          * 
          */
         @Override public void start(Stage primaryStage) throws IOException {
+
+            
             //Border pane
             BorderPane root = new BorderPane();
 
@@ -187,6 +199,7 @@ public class Interface extends Application{
 
             // Handle controls for radio buttons (horizontal bar chart)
             HBCbutton.setOnAction(e -> handleOptionHBC(HBCbox2016, HBCbox2017, series1, series2));
+
 
             // Radio buttons for scatter graph
             RadioButton SGbox2016 = new RadioButton("2016");
@@ -207,7 +220,7 @@ public class Interface extends Application{
             tab1.setClosable(false);
             VBox layout1 = new VBox(10);
             layout1.setPadding(new Insets(10)); 
-            layout1.getChildren().addAll(tabPane, HBCbox2016, HBCbox2017, HBCbutton, horizontalBarChart());
+            layout1.getChildren().addAll(tabPane, HBCbox2016, HBCbox2017, HBCbutton, HorizontalBarChart());
             tab1.setContent(layout1);
             tabPane.getTabs().add(tab1);
 
@@ -241,16 +254,20 @@ public class Interface extends Application{
          * 
          */
         public void handleOptionHBC(RadioButton HBCbox2016, RadioButton HBCbox2017, XYChart.Series<Number, String> series1, XYChart.Series<Number, String> series2){
-            if(HBCbox2016.isSelected()){
+            if(HBCselected2016 == false && HBCbox2016.isSelected()){
                 chart.getData().add(series1);
-            } else {
+                HBCselected2016 = true;
+            }else if(!HBCbox2016.isSelected()){
                 chart.getData().remove(series1);
+                HBCselected2016 = false;
             }
 
-            if(HBCbox2017.isSelected()){
+            if(HBCselected2017 == false && HBCbox2017.isSelected()){
                 chart.getData().add(series2);
-            } else {
+                HBCselected2017 = true;
+            }else if (!HBCbox2017.isSelected()){
                 chart.getData().remove(series2);
+                HBCselected2017 = false;
             }
         }
         
@@ -264,16 +281,20 @@ public class Interface extends Application{
          * 
          */
         public void handleOptionSG(RadioButton SGbox2016, RadioButton SGbox2017, XYChart.Series<String, Number> series3, XYChart.Series<String, Number> series4){
-            if(SGbox2016.isSelected()){
+            if(SGselected2016 == false && SGbox2016.isSelected()){
                 chart2.getData().add(series3);
-            } else {
+                SGselected2016 = true;
+            }else if(!SGbox2016.isSelected()){
                 chart2.getData().remove(series3);
+                SGselected2016 = false;
             }
 
-            if(SGbox2017.isSelected()){
+            if(SGselected2017 == false && SGbox2017.isSelected()){
                 chart2.getData().add(series4);
-            } else {
+                SGselected2017 = true;
+            }else if (!SGbox2017.isSelected()){
                 chart2.getData().remove(series4);
+                SGselected2017 = false;
             }
         }
         
