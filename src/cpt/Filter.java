@@ -5,10 +5,22 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Data Interaction and Visualization CPT 
+ * @author: P. Yang
+ * 
+ */
+
 public class Filter{
 
+    // New array list 
     ArrayList<Deaths> dataArray = new ArrayList<Deaths>();
 
+    /**
+     * A method that reads the CSV file and makes each piece of data a new object. Adds to an array list after 
+     * @author: P. Yang
+     * 
+    */
     public void initializeList() throws IOException{
         String line; 
         String country;
@@ -32,6 +44,13 @@ public class Filter{
         br.close();
     }
 
+    /**
+     * A method that only extracts data specific to the varible int specificYear
+     * @param specificYear Enter specific year you want data from 
+     * @return Return an array list that only includes specificYear data 
+     * @author: P. Yang
+     * 
+     */
     public ArrayList<Deaths> yearSpecificList(int specificYear){
         ArrayList<Deaths> sortedData = new ArrayList<Deaths>();
 
@@ -43,6 +62,12 @@ public class Filter{
         return (sortedData);
     }
 
+    /**
+     * A method that extracts the name of the country and puts it into a new array list 
+     * @return Return an array list that only includes the countries names 
+     * @author: P. Yang
+     * 
+     */
     public ArrayList<String> countryList(){
         ArrayList<String> countryData = new ArrayList<String>();
         ArrayList<String> sortedCountryData = new ArrayList<String>();
@@ -60,13 +85,5 @@ public class Filter{
         }
         return (sortedCountryData);
     }
-
-/* 
-    public static void main(String[] args) throws IOException{
-        initializeList();
-        yearSpecificList(2016);
-        countryList();
-    }
-*/
 }
 
