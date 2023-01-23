@@ -1,5 +1,6 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=9655345&assignment_repo_type=AssignmentRepo)
-# ICS4U CPT (Edit this)
+# ICS4U CPT 
+[Link to Data](https://ourworldindata.org/grapher/death-rates-from-mental-health-and-substance-use-disorders?tab=chart) 
 
-* Place your project README details here
-* Check the [VS Code, Java, and JavaFX Install and Set Up](https://docs.google.com/document/d/1s5oTmY8A8TDZu303p_DaH6CEAcC9xL8-aNX-pAxCcps/edit?usp=sharing) doc for set up and getting started instructions.
+The set of data I decided to work with on this CPT was death rates from mental health and substance use disorders between 1990 and 2017, measured per 100,000 individuals. Over the past years, mental health and substance abuse has been an arising topic. Therefore, I choose this topic to study for this CPT, as it would help me visually compare the data from different years and countries. This would help me see if the specific country or duration of time had an impact on the death rate. 
+
+[Demo Video]()

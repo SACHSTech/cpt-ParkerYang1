@@ -59,7 +59,6 @@ public class Interface extends Application{
     boolean HBCselected2017 = true;
     boolean SGselected2016 = false;
     boolean SGselected2017 = true;
-    
 
     /**
      * Makes a horizontal bar chart based off the data 
