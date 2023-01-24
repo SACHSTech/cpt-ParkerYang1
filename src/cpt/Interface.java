@@ -68,7 +68,6 @@ public class Interface extends Application{
      */
     public Parent HorizontalBarChart() throws IOException{
 
-
         masterList.initializeList();
 
         // Call list method for 2016 in filter class
@@ -184,7 +183,6 @@ public class Interface extends Application{
          * 
          */
         @Override public void start(Stage primaryStage) throws IOException {
-
             
             //Border pane
             BorderPane root = new BorderPane();
@@ -198,7 +196,6 @@ public class Interface extends Application{
 
             // Handle controls for radio buttons (horizontal bar chart)
             HBCbutton.setOnAction(e -> handleOptionHBC(HBCbox2016, HBCbox2017, series1, series2));
-
 
             // Radio buttons for scatter graph
             RadioButton SGbox2016 = new RadioButton("2016");
